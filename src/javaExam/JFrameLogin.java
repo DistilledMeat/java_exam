@@ -68,12 +68,12 @@ public class JFrameLogin extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			UserInfo userInfo = DatabaseService.findByUsername(userNameJF.getText());
-
-				if(userInfo.getPword() == String.valueOf(pwordJF.getPassword())){
+			System.out.println("Info entered" + userInfo.getPword());
+			System.out.println(String.valueOf(pwordJF.getPassword()));
+				if(userInfo.getPword().equals(String.valueOf(pwordJF.getPassword()))){
 					setVisible(false);
 					JFrameExam exam = new JFrameExam();
 					exam.setVisible(true);
-
 				}
 			}
 		});
