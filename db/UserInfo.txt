@@ -1,0 +1,2 @@
+id|username|firstName|lastName|pword|totalScore
+1|JCSA|JC|SA|123|0
