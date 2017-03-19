@@ -12,8 +12,13 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import com.services.DatabaseService;
+
 import java.awt.Component;
 
 public class JFrameExam extends JFrame {
@@ -23,13 +28,15 @@ public class JFrameExam extends JFrame {
 	private int index = 0;
 	
 	Database db = new Database();
-	UserInfo ui = new UserInfo();
+	UserInfo ui;
 
 
 	/**
 	 * Create the frame.
 	 */
-	public JFrameExam() {
+	public JFrameExam(UserInfo userInfo) {
+		ui = userInfo;
+		
 		setTitle("Java Exam");
 		
 		System.out.println("Questions: " + db.getUserAnswer().length);
@@ -200,7 +207,7 @@ public class JFrameExam extends JFrame {
 
 		});
 		
-		btnNxt.setBounds(591, 225, 65, 32);
+		btnNxt.setBounds(430, 229, 65, 32);
 		contentPane.add(btnNxt);
 /*--------------------------------------</Next Button>--------------------------------------*/
 		
@@ -213,8 +220,32 @@ public class JFrameExam extends JFrame {
 			quit.setVisible(true);
 			}
 		});
-		quitButton.setBounds(666, 225, 65, 32);
+		quitButton.setBounds(666, 229, 65, 32);
 		contentPane.add(quitButton);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", "Submit Exam", JOptionPane.YES_NO_OPTION);
+					if (confirm == JOptionPane.YES_OPTION){
+						DatabaseService.update(ui);
+						JFrameSummary sum = new JFrameSummary(ui);
+						sum.setVisible(true);
+						setVisible(false);
+					}
+				
+			}
+		});
+		btnSubmit.setBounds(576, 229, 80, 32);
+		contentPane.add(btnSubmit);
+		
+		JButton btnPrev = new JButton("Prev");
+		btnPrev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnPrev.setBounds(355, 229, 65, 32);
+		contentPane.add(btnPrev);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{aRadioButton, bRadioButton, cRadioButton, dRadioButton, btnNxt, quitButton}));
 		
 /*--------------------------------------</Quit Button>--------------------------------------*/

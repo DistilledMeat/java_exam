@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -68,12 +69,13 @@ public class JFrameLogin extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			UserInfo userInfo = DatabaseService.findByUsername(userNameJF.getText());
-			System.out.println("Info entered" + userInfo.getPword());
 			System.out.println(String.valueOf(pwordJF.getPassword()));
 				if(userInfo != null && userInfo.getPword().equals(String.valueOf(pwordJF.getPassword()))){
 					setVisible(false);
-					JFrameExam exam = new JFrameExam();
+					JFrameExam exam = new JFrameExam(userInfo);
 					exam.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Username or password not valid");
 				}
 			}
 		});

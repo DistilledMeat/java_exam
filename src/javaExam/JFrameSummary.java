@@ -8,35 +8,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JFrameSummary extends JFrame {
 	
 	Database db = new Database();
 	UserInfo ui = new UserInfo();
-	JFrameExam exam = new JFrameExam();
+
 	
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFrameSummary frame = new JFrameSummary();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public JFrameSummary() {
+	public JFrameSummary(UserInfo userInfo) {
+		this.ui = userInfo;
+		
 		setTitle("Exam Summary");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 310, 200);
@@ -49,7 +37,7 @@ public class JFrameSummary extends JFrame {
 		lblExamineeName.setBounds(25, 25, 90, 14);
 		contentPane.add(lblExamineeName);
 		
-		JLabel JLabelExamineeName = new JLabel("Doe, John");
+		JLabel JLabelExamineeName = new JLabel(ui.getLastName() + ", " +  ui.getFirstName());
 		JLabelExamineeName.setBounds(125, 25, 130, 14);
 		contentPane.add(JLabelExamineeName);
 		
@@ -57,7 +45,7 @@ public class JFrameSummary extends JFrame {
 		lblExamineeNo.setBounds(25, 50, 90, 14);
 		contentPane.add(lblExamineeNo);
 		
-		JLabel JLabelExamineeNo = new JLabel("1");
+		JLabel JLabelExamineeNo = new JLabel(String.valueOf(ui.getExamineeNo()));
 		JLabelExamineeNo.setBounds(125, 50, 130, 14);
 		contentPane.add(JLabelExamineeNo);
 		
@@ -70,6 +58,13 @@ public class JFrameSummary extends JFrame {
 		contentPane.add(JLabelExamineeScore);
 		
 		JButton btnOk = new JButton("Ok");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			setVisible(false);
+			JFrameLogin log = new JFrameLogin();
+			log.setVisible(true);
+			}
+		});
 		btnOk.setBounds(195, 127, 89, 23);
 		contentPane.add(btnOk);
 	}
