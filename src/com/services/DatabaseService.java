@@ -3,9 +3,11 @@ package com.services;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import javaExam.UserInfo;
 
 public class DatabaseService {
@@ -52,6 +54,7 @@ public class DatabaseService {
 	
 	public static int update(Object obj) {
 		if (obj instanceof UserInfo) {
+			UserInfo userInfo = (UserInfo) obj;
 			// prepare readers
 			File file = new File("db/UserInfo.txt");
 			FileReader fr;
@@ -59,12 +62,28 @@ public class DatabaseService {
 			try {
 				fr = new FileReader(file);
 				BufferedReader reader = new BufferedReader(fr);
+				String input = "";
 				String line;
+				String targetLine = null;
 				
 				while ((line = reader.readLine()) != null) {
-					// TODO: replace line in text file
+					String[] splittedLine = line.split("\\|");
+					try {
+						int id = Integer.parseInt(splittedLine[0]);
+						if (userInfo.getExamineeNo() == id) {
+							line = toPipeDelimitedString(userInfo);
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					input += line + System.lineSeparator();
 				}
 				
+				FileOutputStream fos = new FileOutputStream("db/UserInfo.txt");
+				fos.write(input.getBytes());
+				fos.close();
+				
+				return 0;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -87,7 +106,8 @@ public class DatabaseService {
 				String[] splittedLine = line.split("\\|");
 				String selectedUsername = splittedLine[1];
 				if (selectedUsername.equals(username)) {
-					return getByID(splittedLine[0]);
+					UserInfo retrievedUserInfo =  getByID(Integer.parseInt(splittedLine[0]));
+					return retrievedUserInfo;
 				}
 			}
 		} catch (Exception e) {
@@ -97,7 +117,7 @@ public class DatabaseService {
 		return null;
 	}
 	
-	public static UserInfo getByID(String id) {
+	public static UserInfo getByID(int id) {
 		// prepare readers
 		File file = new File("db/UserInfo.txt");
 		FileReader fr;
@@ -109,9 +129,19 @@ public class DatabaseService {
 			
 			while ((line = reader.readLine()) != null) {
 				String[] splittedLine = line.split("\\|");
-				if (id.equals(splittedLine[0])) {
+				int selectedExamNumber = -1;
+				try {
+					selectedExamNumber = Integer.parseInt(splittedLine[0]);
+				} catch (Exception e) {
+//					e.printStackTrace();
+				}
+				if (id == selectedExamNumber) {
 					UserInfo user = new UserInfo();
-					user.setExamineeNo(Integer.parseInt(splittedLine[0]));
+					try {
+						user.setExamineeNo(Integer.parseInt(splittedLine[0]));
+					} catch (Exception e) {
+						System.err.println("Error on updating database");
+					}
 					user.setUsername(splittedLine[1]);
 					user.setFirstName(splittedLine[2]);
 					user.setLastName(splittedLine[3]);
