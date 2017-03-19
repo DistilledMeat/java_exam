@@ -84,9 +84,10 @@ public class DatabaseService {
 			String line;
 			
 			while ((line = reader.readLine()) != null) {
-				String selectedUsername = line.split("|")[1];
+				String[] splittedLine = line.split("\\|");
+				String selectedUsername = splittedLine[1];
 				if (selectedUsername.equals(username)) {
-					return getByID(line.split("|")[0]);
+					return getByID(splittedLine[0]);
 				}
 			}
 		} catch (Exception e) {
@@ -107,15 +108,16 @@ public class DatabaseService {
 			String line;
 			
 			while ((line = reader.readLine()) != null) {
-				if (id.equals(line.split("|")[0])) {
+				String[] splittedLine = line.split("\\|");
+				if (id.equals(splittedLine[0])) {
 					UserInfo user = new UserInfo();
-					user.setExamineeNo(Integer.parseInt(line.split("|")[0]));
-					user.setUsername(line.split("|")[1]);
-					user.setFirstName(line.split("|")[2]);
-					user.setLastName(line.split("|")[3]);
-					user.setPword(line.split("|")[4]);
+					user.setExamineeNo(Integer.parseInt(splittedLine[0]));
+					user.setUsername(splittedLine[1]);
+					user.setFirstName(splittedLine[2]);
+					user.setLastName(splittedLine[3]);
+					user.setPword(splittedLine[4]);
 					try {
-						user.setTotalScore(Integer.parseInt(line.split("|")[5]));
+						user.setTotalScore(Integer.parseInt(splittedLine[5]));
 					} catch (Exception e) {
 						user.setTotalScore(0);
 					}
@@ -143,7 +145,7 @@ public class DatabaseService {
 				
 				while ((line = reader.readLine()) != null) {
 					try {
-						output = Integer.parseInt(line.split("|")[0]);
+						output = Integer.parseInt(line.split("\\|")[0]);
 					} catch (Exception e) {
 						// parsing exception
 					}
