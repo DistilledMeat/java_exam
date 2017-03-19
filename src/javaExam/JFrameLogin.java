@@ -70,7 +70,7 @@ public class JFrameLogin extends JFrame {
 			UserInfo userInfo = DatabaseService.findByUsername(userNameJF.getText());
 			System.out.println("Info entered" + userInfo.getPword());
 			System.out.println(String.valueOf(pwordJF.getPassword()));
-				if(userInfo.getPword().equals(String.valueOf(pwordJF.getPassword()))){
+				if(userInfo != null && userInfo.getPword().equals(String.valueOf(pwordJF.getPassword()))){
 					setVisible(false);
 					JFrameExam exam = new JFrameExam();
 					exam.setVisible(true);
