@@ -42,7 +42,7 @@ public class JFrameExam extends JFrame {
 		System.out.println("No. of questions: " + db.getUserAnswer().length);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 760, 317);
+		setBounds(100, 100, 596, 317);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -51,31 +51,22 @@ public class JFrameExam extends JFrame {
 /*------------------------------------<Test Question>-------------------------------------*/
 		JLabel testQuestion = new JLabel("<html><body style='width: " + "425" + "px'>" + db.getQuestions()[0]);
 		testQuestion.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		testQuestion.setBounds(169, 11, 562, 67);
+		testQuestion.setBounds(10, 11, 562, 67);
 		contentPane.add(testQuestion);
-/*------------------------------------</Test Question>------------------------------------*/
-
-/*--------------------------------------<Question List>---------------------------------------*/		
-		JList list = new JList(db.getQuestionNo());
-		list.setBounds(10, 10, 130, 240);
-		
-		JScrollPane scrollPane = new JScrollPane(list);
-		scrollPane.setBounds(10, 11, 149, 250);
-		contentPane.add(scrollPane);
-/*--------------------------------------</Question List>---------------------------------------*/
+/*------------------------------------</Test Question>-------------------------------------*/	
 		
 /*--------------------------------------<ABCD Label>---------------------------------------*/		
 		JLabel lblA = new JLabel("A.");
-		lblA.setBounds(169, 104, 15, 14);
+		lblA.setBounds(10, 104, 15, 14);
 		contentPane.add(lblA);
 		JLabel lblB = new JLabel("B.");
-		lblB.setBounds(169, 162, 15, 14);
+		lblB.setBounds(10, 162, 15, 14);
 		contentPane.add(lblB);
 		JLabel lblC = new JLabel("C.");
-		lblC.setBounds(480, 104, 15, 14);
+		lblC.setBounds(321, 104, 15, 14);
 		contentPane.add(lblC);
 		JLabel lblD = new JLabel("D.");
-		lblD.setBounds(480, 162, 15, 14);
+		lblD.setBounds(321, 162, 15, 14);
 		contentPane.add(lblD);
 /*--------------------------------------</ABCD Label>---------------------------------------*/		
 
@@ -83,33 +74,33 @@ public class JFrameExam extends JFrame {
 		JRadioButton aRadioButton = new JRadioButton("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB1()[0]);
 		aRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		answersRBButtonGroup.add(aRadioButton);
-		aRadioButton.setBounds(190, 88, 230, 45);
+		aRadioButton.setBounds(31, 88, 230, 45);
 		contentPane.add(aRadioButton);
 		JRadioButton bRadioButton = new JRadioButton("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB2()[0]);
 		bRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		answersRBButtonGroup.add(bRadioButton);
-		bRadioButton.setBounds(190, 146, 230, 45);
+		bRadioButton.setBounds(31, 146, 230, 45);
 		contentPane.add(bRadioButton);
 		JRadioButton cRadioButton = new JRadioButton("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB3()[0]);
 		cRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		answersRBButtonGroup.add(cRadioButton);
-		cRadioButton.setBounds(501, 88, 230, 45);
+		cRadioButton.setBounds(342, 88, 230, 45);
 		contentPane.add(cRadioButton);
 		JRadioButton dRadioButton = new JRadioButton("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB4()[0]);
 		dRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		answersRBButtonGroup.add(dRadioButton);
-		dRadioButton.setBounds(501, 146, 230, 45);
+		dRadioButton.setBounds(342, 146, 230, 45);
 		contentPane.add(dRadioButton);
 /*------------------------------------</Radio Buttons>------------------------------------*/
 		
 /*------------------------------------<Selected Answer>-------------------------------------*/
 		JLabel answerLabel = new JLabel("Selected Answer: ");
-		answerLabel.setBounds(169, 225, 109, 14);
+		answerLabel.setBounds(10, 225, 109, 14);
 		contentPane.add(answerLabel);
 		
 		JLabel selectedAnswerLabel = new JLabel("");
 		selectedAnswerLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		selectedAnswerLabel.setBounds(288, 225, 40, 14);
+		selectedAnswerLabel.setBounds(129, 225, 40, 14);
 		contentPane.add(selectedAnswerLabel);
 /*------------------------------------</Selected Answer>------------------------------------*/
 		
@@ -150,7 +141,7 @@ public class JFrameExam extends JFrame {
 		});
 /*--------------------------------</Display Chosen Answer>----------------------------------*/
 		
-/*--------------------------------------<Next/Prev Button>---------------------------------------*/
+/*--------------------------------------<Next Button>---------------------------------------*/
 //Next
 		JButton btnNxt = new JButton("Next");
 		btnNxt.addActionListener(new ActionListener() {
@@ -173,7 +164,7 @@ public class JFrameExam extends JFrame {
 				else {
 				}
 				
-// Increment/decrement userPoints
+// Increment totalScore
 /*Right*/		if (db.getUserAnswer()[index] == db.getRightAnswer()[index]){
 					ui.setTotalScore(ui.getTotalScore() + 1);
 					//TEST: See Answers and points on Console
@@ -192,7 +183,7 @@ public class JFrameExam extends JFrame {
 				}
 /*None*/		else if (db.getUserAnswer()[index] == null){
 					int skip = JOptionPane.showConfirmDialog(null, "Are you sure?", "Skip Question", JOptionPane.YES_NO_OPTION);
-						if (skip == JOptionPane.YES_OPTION) {
+						if (skip == JOptionPane.YES_OPTION){
 							//TEST: See Answers and points on Console
 							System.out.println("Selected Choice: " + db.getUserAnswer()[index]);
 							System.out.println("Points: " + ui.getTotalScore());
@@ -230,26 +221,16 @@ public class JFrameExam extends JFrame {
 
 		});
 		
-		btnNxt.setBounds(430, 229, 65, 32);
+		btnNxt.setBounds(321, 229, 65, 32);
 		contentPane.add(btnNxt);
-		
-//Prev		
-		JButton btnPrev = new JButton("Prev");
-		btnPrev.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			
-			}
-		});
-		btnPrev.setBounds(355, 229, 65, 32);
-		contentPane.add(btnPrev);
-/*--------------------------------------</Next/Prev Button>--------------------------------------*/
+/*--------------------------------------</Next Button>--------------------------------------*/
 
 /*--------------------------------------<Submit Button>---------------------------------------*/		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", "Submit Exam", JOptionPane.YES_NO_OPTION);
-					if (confirm == JOptionPane.YES_OPTION){
+				int submit = JOptionPane.showConfirmDialog(null, "Are you sure?", "Submit Exam", JOptionPane.YES_NO_OPTION);
+					if (submit == JOptionPane.YES_OPTION){
 						DatabaseService.update(ui);
 						JFrameSummary sum = new JFrameSummary(ui);
 						sum.setVisible(true);
@@ -258,13 +239,12 @@ public class JFrameExam extends JFrame {
 					else {
 						JOptionPane.getRootFrame().dispose();
 					}
-				
 			}
 		});
-		btnSubmit.setBounds(576, 229, 80, 32);
+		btnSubmit.setBounds(417, 229, 80, 32);
 		contentPane.add(btnSubmit);
 /*--------------------------------------</Submit Button>---------------------------------------*/	
-		
+
 /*--------------------------------------<Quit Button>---------------------------------------*/
 		JButton quitButton = new JButton("Quit");
 		quitButton.addActionListener(new ActionListener() {
@@ -274,13 +254,10 @@ public class JFrameExam extends JFrame {
 			quit.setVisible(true);
 			}
 		});
-		quitButton.setBounds(666, 229, 65, 32);
-		contentPane.add(quitButton);
-		
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{aRadioButton, bRadioButton, cRadioButton, dRadioButton, btnNxt, quitButton}));
-		
+		quitButton.setBounds(507, 229, 65, 32);
+		contentPane.add(quitButton);		
 /*--------------------------------------</Quit Button>--------------------------------------*/
-		
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{aRadioButton, bRadioButton, cRadioButton, dRadioButton, btnNxt, quitButton}));
 	
 	}
 }
