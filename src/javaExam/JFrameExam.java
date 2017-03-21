@@ -39,7 +39,7 @@ public class JFrameExam extends JFrame {
 		
 		setTitle("Java Exam");
 		
-		System.out.println("Questions: " + db.getUserAnswer().length);
+		System.out.println("No. of questions: " + db.getUserAnswer().length);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 760, 317);
@@ -68,15 +68,12 @@ public class JFrameExam extends JFrame {
 		JLabel lblA = new JLabel("A.");
 		lblA.setBounds(169, 104, 15, 14);
 		contentPane.add(lblA);
-		
 		JLabel lblB = new JLabel("B.");
 		lblB.setBounds(169, 162, 15, 14);
 		contentPane.add(lblB);
-		
 		JLabel lblC = new JLabel("C.");
 		lblC.setBounds(480, 104, 15, 14);
 		contentPane.add(lblC);
-		
 		JLabel lblD = new JLabel("D.");
 		lblD.setBounds(480, 162, 15, 14);
 		contentPane.add(lblD);
@@ -88,19 +85,16 @@ public class JFrameExam extends JFrame {
 		answersRBButtonGroup.add(aRadioButton);
 		aRadioButton.setBounds(190, 88, 230, 45);
 		contentPane.add(aRadioButton);
-		
 		JRadioButton bRadioButton = new JRadioButton("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB2()[0]);
 		bRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		answersRBButtonGroup.add(bRadioButton);
 		bRadioButton.setBounds(190, 146, 230, 45);
 		contentPane.add(bRadioButton);
-		
 		JRadioButton cRadioButton = new JRadioButton("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB3()[0]);
 		cRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		answersRBButtonGroup.add(cRadioButton);
 		cRadioButton.setBounds(501, 88, 230, 45);
 		contentPane.add(cRadioButton);
-		
 		JRadioButton dRadioButton = new JRadioButton("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB4()[0]);
 		dRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		answersRBButtonGroup.add(dRadioButton);
@@ -108,7 +102,7 @@ public class JFrameExam extends JFrame {
 		contentPane.add(dRadioButton);
 /*------------------------------------</Radio Buttons>------------------------------------*/
 		
-/*------------------------------------<Chosen Answer>-------------------------------------*/
+/*------------------------------------<Selected Answer>-------------------------------------*/
 		JLabel answerLabel = new JLabel("Selected Answer: ");
 		answerLabel.setBounds(169, 225, 109, 14);
 		contentPane.add(answerLabel);
@@ -117,7 +111,7 @@ public class JFrameExam extends JFrame {
 		selectedAnswerLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		selectedAnswerLabel.setBounds(288, 225, 40, 14);
 		contentPane.add(selectedAnswerLabel);
-/*------------------------------------</Chosen Answer>------------------------------------*/
+/*------------------------------------</Selected Answer>------------------------------------*/
 		
 /*--------------------------------<Display Chosen Answer>---------------------------------*/
 		aRadioButton.addActionListener(new ActionListener() {
@@ -156,13 +150,14 @@ public class JFrameExam extends JFrame {
 		});
 /*--------------------------------</Display Chosen Answer>----------------------------------*/
 		
-/*--------------------------------------<Next Button>---------------------------------------*/
+/*--------------------------------------<Next/Prev Button>---------------------------------------*/
+//Next
 		JButton btnNxt = new JButton("Next");
 		btnNxt.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
 
-				// TODO: save answer
+// TODO: save answer
 				if (aRadioButton.isSelected()) {
 					db.setUserAnswer("a", index);
 				}
@@ -176,40 +171,99 @@ public class JFrameExam extends JFrame {
 					db.setUserAnswer("d", index);
 				}
 				else {
-				// Display JFrame for Skip Question
 				}
 				
-				// Increment userPoints
-				if (db.getUserAnswer()[index] == db.getRightAnswer()[index]){
+// Increment/decrement userPoints
+/*Right*/		if (db.getUserAnswer()[index] == db.getRightAnswer()[index]){
 					ui.setTotalScore(ui.getTotalScore() + 1);
-				}
-				else {
-					//Do nothing
-				}
-				
-				// clear selection
+					//TEST: See Answers and points on Console
+					System.out.println("Selected Choice: " + db.getUserAnswer()[index]);
+					System.out.println("Points: " + ui.getTotalScore());
+					index++;
+					// clear selection
 					answersRBButtonGroup.clearSelection();
 					selectedAnswerLabel.setText("");
-					
-				//TEST: See Answers and points on Console
-					System.out.println(db.getUserAnswer()[index]);
+					// Display next question and answer
+					testQuestion.setText("<html><body style='width: " + "425" + "px'>" + db.getQuestions()[index]);
+					aRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB1()[index]);
+					bRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB2()[index]);
+					cRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB3()[index]);
+					dRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB4()[index]);
+				}
+/*None*/		else if (db.getUserAnswer()[index] == null){
+					int skip = JOptionPane.showConfirmDialog(null, "Are you sure?", "Skip Question", JOptionPane.YES_NO_OPTION);
+						if (skip == JOptionPane.YES_OPTION) {
+							//TEST: See Answers and points on Console
+							System.out.println("Selected Choice: " + db.getUserAnswer()[index]);
+							System.out.println("Points: " + ui.getTotalScore());
+							index++;
+							// clear selection
+							answersRBButtonGroup.clearSelection();
+							selectedAnswerLabel.setText("");
+							// Display next question and answer
+							testQuestion.setText("<html><body style='width: " + "425" + "px'>" + db.getQuestions()[index]);
+							aRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB1()[index]);
+							bRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB2()[index]);
+							cRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB3()[index]);
+							dRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB4()[index]);
+						}
+						else {
+							JOptionPane.getRootFrame().dispose();
+						}
+				}
+/*Wrong*/		else {
+					//TEST: See Answers and points on Console
+					System.out.println("Selected Choice: " + db.getUserAnswer()[index]);
 					System.out.println("Points: " + ui.getTotalScore());
-					
-				// Display next question and answer
-				index++;
-				testQuestion.setText("<html><body style='width: " + "425" + "px'>" + db.getQuestions()[index]);
-				aRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB1()[index]);
-				bRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB2()[index]);
-				cRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB3()[index]);
-				dRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB4()[index]);
-
+					index++;
+					// clear selection
+					answersRBButtonGroup.clearSelection();
+					selectedAnswerLabel.setText("");
+					// Display next question and answer
+					testQuestion.setText("<html><body style='width: " + "425" + "px'>" + db.getQuestions()[index]);
+					aRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB1()[index]);
+					bRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB2()[index]);
+					cRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB3()[index]);
+					dRadioButton.setText("<html><body style='width: " + "150" + "px'>" + db.getAnswersRB4()[index]);
+				}
 			}
 
 		});
 		
 		btnNxt.setBounds(430, 229, 65, 32);
 		contentPane.add(btnNxt);
-/*--------------------------------------</Next Button>--------------------------------------*/
+		
+//Prev		
+		JButton btnPrev = new JButton("Prev");
+		btnPrev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+			}
+		});
+		btnPrev.setBounds(355, 229, 65, 32);
+		contentPane.add(btnPrev);
+/*--------------------------------------</Next/Prev Button>--------------------------------------*/
+
+/*--------------------------------------<Submit Button>---------------------------------------*/		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", "Submit Exam", JOptionPane.YES_NO_OPTION);
+					if (confirm == JOptionPane.YES_OPTION){
+						DatabaseService.update(ui);
+						JFrameSummary sum = new JFrameSummary(ui);
+						sum.setVisible(true);
+						setVisible(false);
+					}
+					else {
+						JOptionPane.getRootFrame().dispose();
+					}
+				
+			}
+		});
+		btnSubmit.setBounds(576, 229, 80, 32);
+		contentPane.add(btnSubmit);
+/*--------------------------------------</Submit Button>---------------------------------------*/	
 		
 /*--------------------------------------<Quit Button>---------------------------------------*/
 		JButton quitButton = new JButton("Quit");
@@ -223,29 +277,6 @@ public class JFrameExam extends JFrame {
 		quitButton.setBounds(666, 229, 65, 32);
 		contentPane.add(quitButton);
 		
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", "Submit Exam", JOptionPane.YES_NO_OPTION);
-					if (confirm == JOptionPane.YES_OPTION){
-						DatabaseService.update(ui);
-						JFrameSummary sum = new JFrameSummary(ui);
-						sum.setVisible(true);
-						setVisible(false);
-					}
-				
-			}
-		});
-		btnSubmit.setBounds(576, 229, 80, 32);
-		contentPane.add(btnSubmit);
-		
-		JButton btnPrev = new JButton("Prev");
-		btnPrev.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnPrev.setBounds(355, 229, 65, 32);
-		contentPane.add(btnPrev);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{aRadioButton, bRadioButton, cRadioButton, dRadioButton, btnNxt, quitButton}));
 		
 /*--------------------------------------</Quit Button>--------------------------------------*/
