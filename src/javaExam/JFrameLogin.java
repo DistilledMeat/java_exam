@@ -69,7 +69,6 @@ public class JFrameLogin extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			UserInfo userInfo = DatabaseService.findByUsername(userNameJF.getText());
-			System.out.println(String.valueOf(pwordJF.getPassword()));
 				if(userInfo != null && userInfo.getPword().equals(String.valueOf(pwordJF.getPassword()))){
 					setVisible(false);
 					JFrameExam exam = new JFrameExam(userInfo);
