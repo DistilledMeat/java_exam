@@ -60,6 +60,10 @@ public class DatabaseService {
 			FileReader fr;
 			
 			try {
+				if (!file.exists()) {
+					System.out.println("Database missing");
+					return -1;
+				}
 				fr = new FileReader(file);
 				BufferedReader reader = new BufferedReader(fr);
 				String input = "";
