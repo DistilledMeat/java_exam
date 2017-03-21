@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -13,9 +14,12 @@ import com.services.DatabaseService;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import java.awt.Component;
 
 public class JFrameRegistration extends JFrame {
@@ -33,9 +37,6 @@ public class JFrameRegistration extends JFrame {
 	 * Create the frame.
 	 */
 	public JFrameRegistration() {
-		
-		UserInfo ui = new UserInfo();
-		
 		setTitle("Registration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 250);
@@ -76,11 +77,17 @@ public class JFrameRegistration extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 		JFrameLogin login = new JFrameLogin();
 			public void actionPerformed(ActionEvent arg0) {
-				ui.setFirstName(firstNameJF.getText());
-				ui.setLastName(lastNameJF.getText());
-				ui.setUsername(userNameJF.getText());
-				ui.setPword(String.valueOf(pwordJF.getPassword()));
-				DatabaseService.save(ui);
+				if (firstNameJF.getText().trim().length() <= 0 || lastNameJF.getText().trim().length() <= 0 || 
+						userNameJF.getText().trim().length() <= 0 || String.valueOf(pwordJF.getPassword()).trim().length() <= 0) {
+					JOptionPane.showMessageDialog(null, "All fields are required");
+				} else {
+					UserInfo ui = new UserInfo();
+					ui.setFirstName(firstNameJF.getText());
+					ui.setLastName(lastNameJF.getText());
+					ui.setUsername(userNameJF.getText());
+					ui.setPword(String.valueOf(pwordJF.getPassword()));
+					DatabaseService.save(ui);
+				}
 //				setVisible(false);
 				login.setVisible(true);
 				dispose();
