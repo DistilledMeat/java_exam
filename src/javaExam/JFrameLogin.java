@@ -1,10 +1,8 @@
 package javaExam;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import com.services.DatabaseService;
@@ -93,19 +92,17 @@ public class JFrameLogin extends JFrame {
 		userNameJF.setBounds(80, 27, 135, 20);
 		contentPane.add(userNameJF);
 		
+		JLabel label_2 = new JLabel("Password:");
+		label_2.setBounds(10, 58, 70, 14);
+		contentPane.add(label_2);
+		
 		pwordJF = new JPasswordField();
 		pwordJF.setEchoChar('*');
 		pwordJF.setColumns(10);
 		pwordJF.setBounds(80, 55, 135, 20);
 		contentPane.add(pwordJF);
-		
-		JLabel label_2 = new JLabel("Password:");
-		label_2.setBounds(10, 58, 70, 14);
-		contentPane.add(label_2);
+
 		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{userNameJF, pwordJF, btnLogin, btnRegister}));
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{userNameJF, pwordJF, btnLogin, btnRegister, lblUserName, label_2, contentPane}));
-		
-
 	}
-
 }
