@@ -25,6 +25,8 @@ public class JFrameLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField userNameJF;
 	private JPasswordField pwordJF;
+	private JButton btnRegister;
+	private JButton btnLogin;
 
 	/**
 	 * Launch the application.
@@ -54,7 +56,7 @@ public class JFrameLogin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnRegister = new JButton("Register");
+		btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrameRegistration reg = new JFrameRegistration();
@@ -65,7 +67,7 @@ public class JFrameLogin extends JFrame {
 		btnRegister.setBounds(106, 127, 89, 23);
 		contentPane.add(btnRegister);
 		
-		JButton btnLogin = new JButton("Login");
+		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			UserInfo userInfo = DatabaseService.findByUsername(userNameJF.getText());
