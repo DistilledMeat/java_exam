@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 
 public class JFrameSummary extends JFrame {
 	
+	public String testResult;
+	
 	Database db = new Database();
 	UserInfo ui = new UserInfo();
 
@@ -56,8 +58,19 @@ public class JFrameSummary extends JFrame {
 		JLabel JLabelExamineeScore = new JLabel(ui.getTotalScore() + "/" + db.getQuestions().length);
 		JLabelExamineeScore.setBounds(125, 100, 45, 14);
 		contentPane.add(JLabelExamineeScore);
+	
+			if (ui.getTotalScore() >= 60){
+				testResult = "Passed";
+			}
+			else {
+				testResult = "Failed";
+			}
 		
-		JButton btnOk = new JButton("Ok");
+		JLabel JLabelTestResult = new JLabel(testResult);
+		JLabelTestResult.setBounds(209, 100, 46, 14);
+		contentPane.add(JLabelTestResult);
+		
+		JButton btnOk = new JButton("Back to Login Page");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			setVisible(false);
@@ -65,7 +78,8 @@ public class JFrameSummary extends JFrame {
 			log.setVisible(true);
 			}
 		});
-		btnOk.setBounds(195, 127, 89, 23);
+		btnOk.setBounds(135, 127, 149, 23);
 		contentPane.add(btnOk);
+		
 	}
 }
