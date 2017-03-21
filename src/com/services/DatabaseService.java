@@ -98,16 +98,18 @@ public class DatabaseService {
 		FileReader fr;
 		
 		try {
-			fr = new FileReader(file);
-			BufferedReader reader = new BufferedReader(fr);
-			String line;
-			
-			while ((line = reader.readLine()) != null) {
-				String[] splittedLine = line.split("\\|");
-				String selectedUsername = splittedLine[1];
-				if (selectedUsername.equals(username)) {
-					UserInfo retrievedUserInfo =  getByID(Integer.parseInt(splittedLine[0]));
-					return retrievedUserInfo;
+			if (file.exists()) {
+				fr = new FileReader(file);
+				BufferedReader reader = new BufferedReader(fr);
+				String line;
+				
+				while ((line = reader.readLine()) != null) {
+					String[] splittedLine = line.split("\\|");
+					String selectedUsername = splittedLine[1];
+					if (selectedUsername.equals(username)) {
+						UserInfo retrievedUserInfo =  getByID(Integer.parseInt(splittedLine[0]));
+						return retrievedUserInfo;
+					}
 				}
 			}
 		} catch (Exception e) {
