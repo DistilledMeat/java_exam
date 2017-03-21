@@ -71,21 +71,16 @@ public class JFrameLogin extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			UserInfo userInfo = DatabaseService.findByUsername(userNameJF.getText());
-				if(userInfo != null && userInfo.getPword().equals(String.valueOf(pwordJF.getPassword()))){
+			System.out.println(String.valueOf(pwordJF.getPassword()));
+				if (userInfo == null || !userInfo.getPword().equals(String.valueOf(pwordJF.getPassword()))) {
+					JOptionPane.showMessageDialog(null, "Username or password not valid");
+				} else {
 					setVisible(false);
 					JFrameExam exam = new JFrameExam(userInfo);
 					exam.setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "Username or password not valid");
 				}
 			}
 		});
-		File file = new File("db/UserInfo.txt");
-			if (file.exists()){
-				btnLogin.setEnabled(true);
-			} else {
-				btnLogin.setEnabled(false);
-			}
 		btnLogin.setBounds(205, 127, 89, 23);
 		contentPane.add(btnLogin);
 		
