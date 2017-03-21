@@ -109,7 +109,8 @@ public class DatabaseService {
 				
 				while ((line = reader.readLine()) != null) {
 					String[] splittedLine = line.split("\\|");
-					String selectedUsername = splittedLine[1];
+					String selectedUsername = splittedLine[1].trim();
+					System.out.println(selectedUsername);
 					if (selectedUsername.equals(username)) {
 						UserInfo retrievedUserInfo =  getByID(Integer.parseInt(splittedLine[0]));
 						return retrievedUserInfo;
