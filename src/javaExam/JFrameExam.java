@@ -36,6 +36,8 @@ public class JFrameExam extends JFrame {
 	 */
 	public JFrameExam(UserInfo userInfo) {
 		ui = userInfo;
+		ui.setTotalScore(0);	// reset total score
+		DatabaseService.update(ui);
 		
 		setTitle("Java Exam");
 		
