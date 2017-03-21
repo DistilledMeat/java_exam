@@ -81,8 +81,9 @@ public class JFrameRegistration extends JFrame {
 				ui.setUsername(userNameJF.getText());
 				ui.setPword(String.valueOf(pwordJF.getPassword()));
 				DatabaseService.save(ui);
-				setVisible(false);
+//				setVisible(false);
 				login.setVisible(true);
+				dispose();
 			}
 		});
 		btnOk.setBounds(205, 177, 89, 23);
